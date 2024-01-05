@@ -5,15 +5,15 @@ import { notFound } from 'next/navigation'
 
 interface Props {
   params: {
-    id: Category
+    gender: Category
   }
 }
 
 const products = initialData.products
 
 export default function CategoryPage({ params }: Props) {
-  const { id } = params
-  const filteredProductsByCategory = products.filter((p) => p.gender === id)
+  const { gender } = params
+  const filteredProductsByCategory = products.filter((p) => p.gender === gender)
   const labels: Record<Category, string> = {
     men: 'Men',
     women: 'Women',
@@ -24,7 +24,7 @@ export default function CategoryPage({ params }: Props) {
 
   return (
     <>
-      <Title title={`${labels[id]}`} subtitle="All Products" />
+      <Title title={`${labels[gender]}`} subtitle="All Products" />
       <ProductGrid products={filteredProductsByCategory} />
     </>
   )
