@@ -3,7 +3,10 @@ import { inter } from '@/config/fonts'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Tes Shop',
+  title: {
+    template: '%s - Tes | Shop',
+    default: 'Home - Tes | Shop'
+  },
   description: 'An e-commerce'
 }
 
