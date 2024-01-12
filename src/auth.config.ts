@@ -4,7 +4,7 @@ import bcryptjs from 'bcryptjs'
 import credentials from 'next-auth/providers/credentials'
 import prisma from './lib/prisma'
 
-const authenticatedRoutes = ['/checkout', '/checkout/address']
+const authenticatedRoutes = ['/checkout', '/checkout/address', '/profile']
 
 export const authConfig: NextAuthConfig = {
   pages: {
