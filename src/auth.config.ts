@@ -3,6 +3,7 @@ import { z } from 'zod'
 import bcryptjs from 'bcryptjs'
 import credentials from 'next-auth/providers/credentials'
 import prisma from './lib/prisma'
+import { NextResponse } from 'next/server'
 
 const authenticatedRoutes = ['/checkout', '/checkout/address', '/profile']
 
@@ -17,6 +18,15 @@ export const authConfig: NextAuthConfig = {
       const isAuthenticatedRoute = authenticatedRoutes.includes(
         nextUrl.pathname
       )
+      const isAdminRoute = nextUrl.pathname.startsWith('/admin')
+      if (isAdminRoute) {
+        if (!isLoggedIn) return false
+        if (auth.user.role !== 'admin') {
+          const url = nextUrl.clone()
+          url.pathname = '/'
+          return NextResponse.redirect(url)
+        }
+      }
       if (isAuthenticatedRoute) {
         if (isLoggedIn) return true
         return false
