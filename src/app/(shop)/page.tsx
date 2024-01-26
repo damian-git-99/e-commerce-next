@@ -2,7 +2,6 @@ export const revalidate = 60
 
 import { getPaginatedProductsWithImages } from '@/actions'
 import { Pagination, ProductGrid, Title } from '@/components'
-import { redirect } from 'next/navigation'
 
 interface Props {
   searchParams: {
@@ -15,14 +14,22 @@ export default async function Home({ searchParams }: Props) {
   const { products, totalPages } = await getPaginatedProductsWithImages({
     page
   })
-  if (products.length === 0) {
-    redirect('/')
-  }
   return (
     <>
       <Title title="Shop" subtitle="All Products" />
-      <ProductGrid products={products} />
-      <Pagination totalPages={totalPages} />
+
+      {products.length === 0 && (
+        <div className="h-screen flex justify-center">
+          <p>No Hay Productos Disponibles...</p>
+        </div>
+      )}
+
+      {products.length > 0 && (
+        <>
+          <ProductGrid products={products} />
+          <Pagination totalPages={totalPages} />
+        </>
+      )}
     </>
   )
 }
