@@ -7,7 +7,8 @@ const nextConfig = {
         hostname: 'res.cloudinary.com'
       }
     ]
-  }
+  },
+  output: 'standalone'
 }
 
 module.exports = nextConfig

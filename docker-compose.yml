@@ -13,5 +13,25 @@ services:
     ports:
       - 5432:5432
 
+  next-app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: next-app
+    environment:
+      DATABASE_URL: postgresql://postgres:123456@postgres-db:5432/teslo-shop?schema=public
+      AUTH_SECRET: ${AUTH_SECRET}
+      AUTH_TRUST_HOST: ${AUTH_TRUST_HOST}
+      NEXT_PUBLIC_PAYPAL_CLIENT_ID: ${NEXT_PUBLIC_PAYPAL_CLIENT_ID}
+      PAYPAL_SECRET: ${PAYPAL_SECRET}
+      PAYPAL_OAUTH_URL: ${PAYPAL_OAUTH_URL}
+      PAYPAL_ORDERS_URL: ${PAYPAL_ORDERS_URL}
+      CLOUDINARY_URL: ${CLOUDINARY_URL}
+    ports:
+      - '3000:${SERVER_PORT:-3000}'
+    depends_on:
+      - postgres-db
+    restart: always
+
 volumes:
   postgres:
