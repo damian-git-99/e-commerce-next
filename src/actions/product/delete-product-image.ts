@@ -9,7 +9,7 @@ export const deleteProductImage = async (imageId: number, imageUrl: string) => {
   if (!imageUrl.startsWith('http')) {
     return {
       ok: false,
-      error: 'No se pueden borrar imagenes de FS'
+      error: 'Images cannot be deleted from the File System'
     }
   }
 
@@ -37,7 +37,7 @@ export const deleteProductImage = async (imageId: number, imageUrl: string) => {
     console.log(error)
     return {
       ok: false,
-      message: 'No se pudo eliminar la imagen'
+      message: 'The image could not be deleted.'
     }
   }
 }

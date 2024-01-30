@@ -13,11 +13,11 @@ export const Footer = () => {
       </Link>
 
       <Link href="/" className="mx-3">
-        Privacidad & Legal
+        Privacy & Legal
       </Link>
 
       <Link href="/" className="mx-3">
-        Ubicaciones
+        Locations.
       </Link>
     </div>
   )

@@ -16,7 +16,7 @@ export const getPaginatedUsers = async ({ page = 1, take = 10 }: Params) => {
   if (session?.user.role !== 'admin') {
     return {
       ok: false,
-      message: 'Debe de ser un usuario administrador'
+      message: 'You must be authenticated as an admin.'
     }
   }
 

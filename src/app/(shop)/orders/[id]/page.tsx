@@ -27,10 +27,10 @@ export default async function OrderPage({ params }: Props) {
   return (
     <div className="flex justify-center items-center mb-72 px-10 sm:px-0">
       <div className="flex flex-col w-[1000px]">
-        <Title title={`Orden #${id.split('-').at(-1)}`} />
+        <Title title={`Order #${id.split('-').at(-1)}`} />
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-10">
-          {/* Carrito */}
+          {/* Cart */}
           <div className="flex flex-col mt-5">
             <div
               className={clsx(
@@ -42,9 +42,8 @@ export default async function OrderPage({ params }: Props) {
               )}
             >
               <IoCardOutline size={30} />
-              {/* <span className="mx-2">Pendiente de pago</span> */}
               <span className="mx-2">
-                {order?.isPaid ? 'Pagada' : 'No pagada'}
+                {order?.isPaid ? 'Paid' : 'Not paid'}
               </span>
             </div>
 
@@ -79,9 +78,9 @@ export default async function OrderPage({ params }: Props) {
             ))}
           </div>
 
-          {/* Checkout - Resumen de orden */}
+          {/* Checkout - Order summary. */}
           <div className="bg-white rounded-xl shadow-xl p-7">
-            <h2 className="text-2xl mb-2">Dirección de entrega</h2>
+            <h2 className="text-2xl mb-2">Delivery address.</h2>
             <div className="mb-10">
               <p className="text-xl">
                 {address!.firstName} {address!.lastName}
@@ -98,14 +97,14 @@ export default async function OrderPage({ params }: Props) {
             {/* Divider */}
             <div className="w-full h-0.5 rounded bg-gray-200 mb-10" />
 
-            <h2 className="text-2xl mb-2">Resumen de orden</h2>
+            <h2 className="text-2xl mb-2">Order Summary</h2>
 
             <div className="grid grid-cols-2">
-              <span>No. Productos</span>
+              <span>No. products.</span>
               <span className="text-right">
                 {order?.itemsInOrder === 1
-                  ? '1 artículo'
-                  : `${order?.itemsInOrder} artículos`}
+                  ? '1 item'
+                  : `${order?.itemsInOrder} items`}
               </span>
 
               <span>Subtotal</span>
@@ -113,7 +112,7 @@ export default async function OrderPage({ params }: Props) {
                 {currencyFormat(order!.subTotal)}
               </span>
 
-              <span>Impuestos (15%)</span>
+              <span>Taxes (15%).</span>
               <span className="text-right">{currencyFormat(order!.tax)}</span>
 
               <span className="mt-5 text-2xl">Total:</span>

@@ -18,14 +18,14 @@ export const LoginForm = () => {
 
   return (
     <form action={dispatch} className="flex flex-col">
-      <label htmlFor="email">Correo electrónico</label>
+      <label htmlFor="email">Email address.</label>
       <input
         className="px-5 py-2 border bg-gray-200 rounded mb-5"
         type="email"
         name="email"
       />
 
-      <label htmlFor="email">Contraseña</label>
+      <label htmlFor="email">Password</label>
       <input
         className="px-5 py-2 border bg-gray-200 rounded mb-5"
         type="password"
@@ -40,9 +40,7 @@ export const LoginForm = () => {
         {state === 'CredentialsSignin' && (
           <div className="flex flex-row mb-2">
             <IoInformationOutline className="h-5 w-5 text-red-500" />
-            <p className="text-sm text-red-500">
-              Credenciales no son correctas
-            </p>
+            <p className="text-sm text-red-500">Credentials are not correct.</p>
           </div>
         )}
       </div>
@@ -56,7 +54,7 @@ export const LoginForm = () => {
       </div>
 
       <Link href="/auth/new-account" className="btn-secondary text-center">
-        Crear una nueva cuenta
+        Create a new account
       </Link>
     </form>
   )
@@ -74,7 +72,7 @@ function LoginButton() {
       })}
       disabled={pending}
     >
-      Ingresar
+      Log in
     </button>
   )
 }

@@ -21,7 +21,7 @@ export default async function ProductPage({ params }: Props) {
     redirect('/admin/products')
   }
 
-  const title = slug === 'new' ? 'Nuevo producto' : 'Editar producto'
+  const title = slug === 'new' ? 'New product' : 'Modify product'
 
   return (
     <>

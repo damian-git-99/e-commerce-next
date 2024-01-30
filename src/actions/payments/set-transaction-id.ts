@@ -15,7 +15,7 @@ export const setTransactionId = async (
     if (!order) {
       return {
         ok: false,
-        message: `No se encontró una orden con el ${orderId}`
+        message: `No order found with ${orderId}.`
       }
     }
 
@@ -25,7 +25,7 @@ export const setTransactionId = async (
 
     return {
       ok: false,
-      message: 'No se pudo actualizar el id de la transacción'
+      message: 'The transaction ID could not be updated.'
     }
   }
 }

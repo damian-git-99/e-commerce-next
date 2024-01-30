@@ -16,7 +16,7 @@ export const getPaginatedOrders = async ({ page = 1, take = 10 }: Params) => {
   if (session?.user.role !== 'admin') {
     return {
       ok: false,
-      message: 'Debe de estar autenticado'
+      message: 'You must be authenticated'
     }
   }
 

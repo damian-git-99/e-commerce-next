@@ -41,7 +41,7 @@ export const AddToCart = ({ product }: Props) => {
     <>
       {posted && !size && (
         <span className="mt-2 text-red-500 fade-in">
-          Debe de seleccionar una talla*
+          You must select a size.
         </span>
       )}
 
@@ -54,7 +54,7 @@ export const AddToCart = ({ product }: Props) => {
       <QuantitySelector quantity={quantity} onQuantityChanged={setQuantity} />
 
       <button onClick={addToCart} className="btn-primary my-5">
-        Agregar al carrito
+        Add to cart.
       </button>
     </>
   )

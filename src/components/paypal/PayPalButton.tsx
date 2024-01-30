@@ -36,7 +36,7 @@ export const PayPalButton = ({ orderId, amount }: Props) => {
     const { ok } = await setTransactionId(orderId, transactionId)
 
     if (!ok) {
-      throw new Error('No se pudo actualizar la orden')
+      throw new Error('The order could not be updated.')
     }
 
     console.log({ transactionId })

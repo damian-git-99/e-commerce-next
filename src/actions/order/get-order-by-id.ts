@@ -9,7 +9,7 @@ export const getOrderById = async (id: string) => {
   if (!session?.user) {
     return {
       ok: false,
-      message: 'Debe de estar autenticado'
+      message: 'You must be authenticated'
     }
   }
 
@@ -42,11 +42,11 @@ export const getOrderById = async (id: string) => {
       }
     })
 
-    if (!order) throw `${id} no existe`
+    if (!order) throw `${id} does not exist`
 
     if (session.user.role === 'user') {
       if (session.user.id !== order.userId) {
-        throw `${id} no es de ese usuario`
+        throw `${id} does not belong to that user`
       }
     }
 
@@ -59,7 +59,7 @@ export const getOrderById = async (id: string) => {
 
     return {
       ok: false,
-      message: 'Orden no existe'
+      message: 'Order does not exist.'
     }
   }
 }

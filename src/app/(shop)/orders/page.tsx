@@ -32,19 +32,19 @@ export default async function OrdersPage() {
                 scope="col"
                 className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
               >
-                Nombre completo
+                Full name
               </th>
               <th
                 scope="col"
                 className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
               >
-                Estado
+                State
               </th>
               <th
                 scope="col"
                 className="text-sm font-medium text-gray-900 px-6 py-4 text-left"
               >
-                Opciones
+                Options
               </th>
             </tr>
           </thead>
@@ -64,12 +64,12 @@ export default async function OrdersPage() {
                   {order.isPaid ? (
                     <>
                       <IoCardOutline className="text-green-800" />
-                      <span className="mx-2 text-green-800">Pagada</span>
+                      <span className="mx-2 text-green-800">Paid</span>
                     </>
                   ) : (
                     <>
                       <IoCardOutline className="text-red-800" />
-                      <span className="mx-2 text-red-800">No Pagada</span>
+                      <span className="mx-2 text-red-800">Not Paid</span>
                     </>
                   )}
                 </td>
@@ -78,7 +78,7 @@ export default async function OrdersPage() {
                     href={`/orders/${order.id}`}
                     className="hover:underline"
                   >
-                    Ver orden
+                    View order.
                   </Link>
                 </td>
               </tr>

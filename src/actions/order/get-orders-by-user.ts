@@ -9,7 +9,7 @@ export const getOrdersByUser = async () => {
   if (!session?.user) {
     return {
       ok: false,
-      message: 'Debe de estar autenticado'
+      message: 'You must be authenticated'
     }
   }
 

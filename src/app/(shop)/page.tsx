@@ -20,7 +20,7 @@ export default async function Home({ searchParams }: Props) {
 
       {products.length === 0 && (
         <div className="h-screen flex justify-center">
-          <p>No Hay Productos Disponibles...</p>
+          <p>No products available</p>
         </div>
       )}
 

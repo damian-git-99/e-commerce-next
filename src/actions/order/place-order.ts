@@ -20,12 +20,12 @@ export const placeOrder = async (
   if (!userId) {
     return {
       ok: false,
-      message: 'No hay sesión de usuario'
+      message: 'There is no user session'
     }
   }
 
-  // Obtener la información de los productos
-  // Nota: recuerden que podemos llevar 2+ productos con el mismo ID
+  // Get information about the products
+  // Note: Remember that we can have 2+ products with the same ID
   const products = await prisma.product.findMany({
     where: {
       id: {
@@ -41,7 +41,7 @@ export const placeOrder = async (
       const productQuantity = item.quantity
       const product = products.find((product) => product.id === item.productId)
 
-      if (!product) throw new Error(`${item.productId} no existe - 500`)
+      if (!product) throw new Error(`${item.productId} does not exist - 500`)
 
       const subTotal = product.price * productQuantity
 
@@ -64,7 +64,7 @@ export const placeOrder = async (
           .reduce((acc, item) => item.quantity + acc, 0)
 
         if (productQuantity === 0) {
-          throw new Error(`${product.id} no tiene cantidad definida`)
+          throw new Error(`${product.id} does not have a defined quantity.`)
         }
 
         return tx.product.update({
@@ -82,7 +82,7 @@ export const placeOrder = async (
       // Verify negative values in existence = no stock
       updatedProducts.forEach((product) => {
         if (product.inStock < 0) {
-          throw new Error(`${product.title} no tiene inventario suficiente`)
+          throw new Error(`${product.title} There is not enough inventory.`)
         }
       })
 

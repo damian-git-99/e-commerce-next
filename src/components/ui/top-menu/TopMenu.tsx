@@ -41,13 +41,13 @@ export const TopMenu = () => {
           className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
           href="/gender/women"
         >
-          Mujeres
+          Women
         </Link>
         <Link
           className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
           href="/gender/kid"
         >
-          Niños
+          Kids
         </Link>
       </div>
 
@@ -75,7 +75,7 @@ export const TopMenu = () => {
           onClick={openSideMenu}
           className="m-2 p-2 rounded-md transition-all hover:bg-gray-100"
         >
-          Menú
+          Menu
         </button>
       </div>
     </nav>

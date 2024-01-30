@@ -38,7 +38,7 @@ export const RegisterForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-      <label htmlFor="email">Nombre completo</label>
+      <label htmlFor="email">Full name</label>
       <input
         className={clsx('px-5 py-2 border bg-gray-200 rounded mb-5', {
           'border-red-500': errors.name
@@ -48,7 +48,7 @@ export const RegisterForm = () => {
         {...register('name', { required: true })}
       />
 
-      <label htmlFor="email">Correo electrónico</label>
+      <label htmlFor="email">Email address.</label>
       <input
         className={clsx('px-5 py-2 border bg-gray-200 rounded mb-5', {
           'border-red-500': errors.email
@@ -57,7 +57,7 @@ export const RegisterForm = () => {
         {...register('email', { required: true, pattern: /^\S+@\S+$/i })}
       />
 
-      <label htmlFor="email">Contraseña</label>
+      <label htmlFor="email">Password</label>
       <input
         className={clsx('px-5 py-2 border bg-gray-200 rounded mb-5', {
           'border-red-500': errors.password
@@ -68,7 +68,7 @@ export const RegisterForm = () => {
 
       <span className="text-red-500">{errorMessage} </span>
 
-      <button className="btn-primary">Crear cuenta</button>
+      <button className="btn-primary">Create Account</button>
 
       {/* divisor l ine */}
       <div className="flex items-center my-5">
@@ -78,7 +78,7 @@ export const RegisterForm = () => {
       </div>
 
       <Link href="/auth/login" className="btn-secondary text-center">
-        Ingresar
+        Log in
       </Link>
     </form>
   )

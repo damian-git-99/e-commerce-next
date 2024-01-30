@@ -14,7 +14,7 @@ export const deleteUserAddress = async (userId: string) => {
 
     return {
       ok: false,
-      message: 'No se pudo eliminar la direccion'
+      message: 'The address could not be deleted.'
     }
   }
 }

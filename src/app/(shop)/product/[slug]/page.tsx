@@ -25,10 +25,10 @@ export async function generateMetadata(
   const product = await getProductBySlug(slug)
 
   return {
-    title: product?.title ?? 'Producto no encontrado',
+    title: product?.title ?? 'Product not found.',
     description: product?.description ?? '',
     openGraph: {
-      title: product?.title ?? 'Producto no encontrado',
+      title: product?.title ?? 'Product not found.',
       description: product?.description ?? '',
       images: [`/products/${product?.images[1]}`]
     }
@@ -70,7 +70,7 @@ export default async function ProductPage({ params }: Props) {
 
         <AddToCart product={product} />
 
-        <h3 className="font-bold text-sm">Descripción</h3>
+        <h3 className="font-bold text-sm">Description</h3>
         <p className="font-light">{product.description}</p>
       </div>
     </div>

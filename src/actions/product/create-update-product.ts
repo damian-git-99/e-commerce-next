@@ -83,7 +83,7 @@ export const createUpdateProduct = async (formData: FormData) => {
         // [https://url.jpg, https://url.jpg]
         const images = await uploadImages(formData.getAll('images') as File[])
         if (!images) {
-          throw new Error('No se pudo cargar las imágenes, rollingback')
+          throw new Error('The images could not be uploaded, rolling back.')
         }
 
         await prisma.productImage.createMany({
@@ -110,7 +110,7 @@ export const createUpdateProduct = async (formData: FormData) => {
   } catch (error) {
     return {
       ok: false,
-      message: 'Revisar los logs, no se pudo actualizar/crear'
+      message: "couldn't update/create."
     }
   }
 }

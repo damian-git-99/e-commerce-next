@@ -28,7 +28,7 @@ export default async function UsersPage({ searchParams }: Props) {
 
   return (
     <>
-      <Title title="Mantenimiento de usuarios" />
+      <Title title="Product maintenance" />
 
       <div className="mb-10">
         <UsersTable users={users} />

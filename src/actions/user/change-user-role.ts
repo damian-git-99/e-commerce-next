@@ -10,7 +10,7 @@ export const changeUserRole = async (userId: string, role: string) => {
   if (session?.user.role !== 'admin') {
     return {
       ok: false,
-      message: 'Debe de estar autenticado como admin'
+      message: 'You must be authenticated as an admin'
     }
   }
 
@@ -35,7 +35,7 @@ export const changeUserRole = async (userId: string, role: string) => {
     console.log(error)
     return {
       ok: false,
-      message: 'No se pudo actualizar el role, revisar logs'
+      message: 'The role could not be updated'
     }
   }
 }

@@ -9,7 +9,6 @@ export default async function CheckoutLayout({
   const session = await auth()
 
   if (!session?.user) {
-    // redirect('/auth/login?returnTo=/perfil');
     redirect('/auth/login?redirectTo=/checkout/address')
   }
 
