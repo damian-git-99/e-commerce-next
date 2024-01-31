@@ -27,9 +27,9 @@ Next 14 E-commerce with integration of Next Auth, Prisma, PayPal, and Cloudinary
 
 ## Screenshots
 
-![](https://github.com/damian-git-99/e-commerce-next/blob/master/docs/screenshot1.png)
-![](https://github.com/damian-git-99/e-commerce-next/blob/master/docs/screenshot2.png)
-![](https://github.com/damian-git-99/e-commerce-next/blob/master/docs/screenshot3.png)
-![](https://github.com/damian-git-99/e-commerce-next/blob/master/docs/screenshot4.png)
-![](https://github.com/damian-git-99/e-commerce-next/blob/master/docs/screenshot5.png)
-![](https://github.com/damian-git-99/e-commerce-next/blob/master/docs/screenshot6.png)
+![](https://github.com/damian-git-99/e-commerce-next/blob/main/docs/screenshot1.png)
+![](https://github.com/damian-git-99/e-commerce-next/blob/main/docs/screenshot2.png)
+![](https://github.com/damian-git-99/e-commerce-next/blob/main/docs/screenshot3.png)
+![](https://github.com/damian-git-99/e-commerce-next/blob/main/docs/screenshot4.png)
+![](https://github.com/damian-git-99/e-commerce-next/blob/main/docs/screenshot5.png)
+![](https://github.com/damian-git-99/e-commerce-next/blob/main/docs/screenshot6.png)
