@@ -6,11 +6,16 @@ import { redirect, usePathname, useSearchParams } from 'next/navigation'
 import { IoChevronBackOutline, IoChevronForwardOutline } from 'react-icons/io5'
 import { generatePaginationNumbers } from '@/utils'
 
-interface Props {
-  totalPages: number
+interface ExtraParam {
+  [param: string]: string
 }
 
-export const Pagination = ({ totalPages }: Props) => {
+interface Props {
+  totalPages: number
+  extraParams?: ExtraParam
+}
+
+export const Pagination = ({ totalPages, extraParams }: Props) => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -40,6 +45,12 @@ export const Pagination = ({ totalPages }: Props) => {
     }
 
     params.set('page', pageNumber.toString())
+
+    // add extra params = example term
+    for (const clave in extraParams) {
+      params.set(clave, extraParams[clave])
+    }
+
     return `${pathname}?${params.toString()}`
   }
 

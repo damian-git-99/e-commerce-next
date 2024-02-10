@@ -2,12 +2,14 @@ import { Pagination, ProductGrid } from '@/components'
 import { useEffect, useState } from 'react'
 import { Loader } from './Loader'
 import { getPaginatedProductsWithImagesByTitle } from '@/actions'
+import { useSearchParams } from 'next/navigation'
 
 interface Props {
   search: string
 }
 
 export const ProductsResult = ({ search }: Props) => {
+  const searchParams = useSearchParams()
   const [isLoading, setIsLoading] = useState(false)
   const [products, setProducts] = useState<any>([])
   const [totalPages, setTotalPages] = useState(0)
@@ -15,18 +17,19 @@ export const ProductsResult = ({ search }: Props) => {
   useEffect(() => {
     setIsLoading(true)
     const data = setTimeout(() => {
-      // todo: call server action
-      getPaginatedProductsWithImagesByTitle({ term: search })
+      let page = 1
+      if (searchParams.has('page'))
+        page = parseInt(searchParams.get('page') as string)
+
+      getPaginatedProductsWithImagesByTitle({ term: search, page })
         .then((res) => {
-          console.log('call server')
-          console.log(res)
           setProducts(res.products)
           setTotalPages(res.totalPages)
         })
         .finally(() => setIsLoading(false))
     }, 1000)
     return () => clearTimeout(data)
-  }, [search])
+  }, [search, searchParams])
 
   return (
     <div>
@@ -39,7 +42,7 @@ export const ProductsResult = ({ search }: Props) => {
       {products.length > 0 && isLoading === false && (
         <div className="mt-5">
           <ProductGrid products={products} />
-          <Pagination totalPages={totalPages} />
+          <Pagination totalPages={totalPages} extraParams={{ term: search }} />
         </div>
       )}
     </div>
