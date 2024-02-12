@@ -1,8 +1,10 @@
+'use client'
 import { Pagination, ProductGrid } from '@/components'
 import { useEffect, useState } from 'react'
 import { Loader } from './Loader'
 import { getPaginatedProductsWithImagesByTitle } from '@/actions'
 import { useSearchParams } from 'next/navigation'
+import { Product } from '@/interfaces'
 
 interface Props {
   search: string
@@ -11,7 +13,7 @@ interface Props {
 export const ProductsResult = ({ search }: Props) => {
   const searchParams = useSearchParams()
   const [isLoading, setIsLoading] = useState(false)
-  const [products, setProducts] = useState<any>([])
+  const [products, setProducts] = useState<Product[]>([])
   const [totalPages, setTotalPages] = useState(0)
 
   useEffect(() => {
