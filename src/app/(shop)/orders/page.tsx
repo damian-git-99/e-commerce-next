@@ -18,7 +18,7 @@ export default async function OrdersPage() {
     <>
       <Title title="Orders" />
 
-      <div className="mb-10">
+      <div className="mb-10 overflow-x-auto">
         <table className="min-w-full">
           <thead className="bg-gray-200 border-b">
             <tr>

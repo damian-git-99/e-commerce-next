@@ -34,7 +34,7 @@ export default async function OrdersPage({ searchParams }: Props) {
     <>
       <Title title="All orders" />
 
-      <div className="mb-10">
+      <div className="mb-10 overflow-x-auto">
         <table className="min-w-full">
           <thead className="bg-gray-200 border-b">
             <tr>
@@ -101,9 +101,8 @@ export default async function OrdersPage({ searchParams }: Props) {
             ))}
           </tbody>
         </table>
-
-        <Pagination totalPages={totalPages} />
       </div>
+      <Pagination totalPages={totalPages} />
     </>
   )
 }
