@@ -1,0 +1,82 @@
+name: Docker Image Build, Push and deploy
+on:
+  push:
+    branches:
+      - production
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Git Semantic Version
+        uses: PaulHatch/semantic-version@v4.0.3
+        with:
+          tag_prefix: 'v'
+          major_pattern: 'BREAKING CHANGE:'
+          minor_pattern: 'feat:'
+          patch_pattern: 'fix:'
+          format: '${major}.${minor}.${patch}'
+          bump_each_commit: true
+        id: version
+
+      - name: 'Get Previous tag'
+        id: previoustag
+        uses: 'WyriHaximus/github-action-get-previous-tag@v1'
+        with:
+          fallback: 0.0.0 # Optional fallback tag to use when no tag can be found
+
+      - name: Update CHANGELOG
+        id: changelog
+        uses: requarks/changelog-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fromTag: ${{ github.ref_name }}
+          toTag: ${{  steps.previoustag.outputs.tag }}
+          writeToFile: false
+          excludeTypes: ''
+
+      - name: Release
+        uses: ncipollo/release-action@v1
+        with:
+          tag: ${{ steps.version.outputs.version }}
+          body: ${{ steps.changelog.outputs.changes}}
+
+      - name: Docker login
+        env:
+          DOCKER_USER: ${{ secrets.DOCKER_USER }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: |
+          docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+      - name: Build Docker Image
+        env:
+          NEW_VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          docker build -t ${{ secrets.DOCKER_IMAGE_NAME }}:$NEW_VERSION .
+          docker build -t ${{ secrets.DOCKER_IMAGE_NAME }}:latest .
+
+      - name: Push Docker Image
+        env:
+          NEW_VERSION: ${{ steps.version.outputs.version }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          docker push ${{ secrets.DOCKER_IMAGE_NAME }}:$NEW_VERSION
+          docker push ${{ secrets.DOCKER_IMAGE_NAME }}:latest
+
+      - name: SSH connection to EC2 instance
+        env:
+          NEW_VERSION: ${{ steps.version.outputs.version }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST_IP }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: |
+            export IMAGE_VERSION=${{ env.NEW_VERSION }}
+            docker-compose up -d --build
