@@ -1,8 +1,83 @@
-version: '3.8'
+version: '3.7'
+
+volumes:
+  grafana-data:
+  prometheus-data:
+  loki-data:
+  postgres:
 
 services:
+  grafana:
+    image: grafana/grafana:9.2.0
+    container_name: grafana
+    restart: unless-stopped
+    volumes:
+      - grafana-data:/var/lib/grafana
+    ports:
+      - 3000:3000
+
+  prometheus:
+    image: prom/prometheus:v2.28.1
+    container_name: prometheus
+    restart: unless-stopped
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - prometheus-data:/prometheus
+    ports:
+      - 9090:9090
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--storage.tsdb.retention.time=1y'
+      - '--web.enable-lifecycle'
+
+  loki:
+    image: grafana/loki:2.0.0
+    container_name: loki
+    restart: unless-stopped
+    volumes:
+      - ./loki-config.yml:/mnt/config/loki-config.yml
+      - loki-data:/loki
+    ports:
+      - 3100:3100
+    command:
+      - '-config.file=/mnt/config/loki-config.yml'
+
+  node_exporter:
+    image: quay.io/prometheus/node-exporter:v1.7.0
+    container_name: node_exporter
+    restart: unless-stopped
+    ports:
+      - 9100:9100
+    command:
+      - '--path.rootfs=/host'
+    pid: host
+    volumes:
+      - '/:/host:ro,rslave'
+    logging:
+      driver: loki
+      options:
+        loki-url: ${LOKI_URL}
+
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.49.1
+    container_name: cadvisor
+    ports:
+      - 8080:8080
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+      - /dev/disk/:/dev/disk:ro
+    devices:
+      - /dev/kmsg
+    privileged: true
+    restart: unless-stopped
+
   postgres-db:
     image: postgres:15.3
+    container_name: postgres
     restart: always
     environment:
       POSTGRES_USER: ${DB_USER}
@@ -12,11 +87,13 @@ services:
       - postgres:/data/postgres
     ports:
       - 5432:5432
+    logging:
+      driver: loki
+      options:
+        loki-url: ${LOKI_URL}
 
   next-app:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: ${NEXT_APP_IMAGE_NAME}:${NEXT_APP_IMAGE_VERSION:-latest}
     container_name: next-app
     environment:
       DATABASE_URL: postgresql://postgres:123456@postgres-db:5432/teslo-shop?schema=public
@@ -28,10 +105,11 @@ services:
       PAYPAL_ORDERS_URL: ${PAYPAL_ORDERS_URL}
       CLOUDINARY_URL: ${CLOUDINARY_URL}
     ports:
-      - '3000:${SERVER_PORT:-3000}'
+      - '3001:${SERVER_PORT:-3000}'
     depends_on:
       - postgres-db
     restart: always
-
-volumes:
-  postgres:
+    logging:
+      driver: loki
+      options:
+        loki-url: ${LOKI_URL}

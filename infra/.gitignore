@@ -1,0 +1,18 @@
+# Ignorar archivos de estado de Terraform
+*.tfstate
+*.tfstate.*
+# *.tfvars no inluirlos ya que tienen variables sensibles
+
+# Ignorar archivos de configuración de Terraform que pueden contener credenciales sensibles
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+*.auto.tfvars
+*.auto.tfvars.json
+
+# Ignorar archivos de planificación de Terraform
+*.tfplan
+
+# Ignorar directorios de Terraform
+.terraform/
