@@ -37,9 +37,8 @@ COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 COPY --chown=nextjs:nodejs prisma ./prisma/ 
-COPY --chown=nextjs:nodejs docker-bootstrap-app.sh ./
 
 USER nextjs
 EXPOSE 3000
 ENV PORT 3000
-CMD ["./docker-bootstrap-app.sh"]
+CMD DATABASE_URL="$DATABASE_URL" npx prisma migrate deploy && DATABASE_URL="$DATABASE_URL" node server.js
