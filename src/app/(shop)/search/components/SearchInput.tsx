@@ -1,6 +1,8 @@
 'use client'
 
+import { usePathname, useSearchParams, useRouter } from 'next/navigation'
 import React, { Dispatch, SetStateAction } from 'react'
+import { useEffect } from 'react'
 
 interface Props {
   search: string
@@ -8,9 +10,22 @@ interface Props {
 }
 
 export const SearchInput = ({ search, setSearch }: Props) => {
+  const pathname = usePathname()
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value)
   }
+
+  useEffect(() => {
+    // updating of the URL query parameters
+    const params = new URLSearchParams(searchParams)
+    params.set('term', search)
+    const queryString = params.toString()
+    const updatedPath = queryString ? `${pathname}?${queryString}` : pathname
+    router.push(updatedPath)
+  }, [search])
 
   return (
     <div className="relative text-lg bg-transparent text-gray-800">

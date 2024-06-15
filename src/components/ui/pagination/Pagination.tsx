@@ -15,7 +15,7 @@ interface Props {
   extraParams?: ExtraParam
 }
 
-export const Pagination = ({ totalPages, extraParams }: Props) => {
+export const Pagination = ({ totalPages }: Props) => {
   const pathname = usePathname()
   const searchParams = useSearchParams()
 
@@ -45,11 +45,6 @@ export const Pagination = ({ totalPages, extraParams }: Props) => {
     }
 
     params.set('page', pageNumber.toString())
-
-    // add extra params = example term
-    for (const clave in extraParams) {
-      params.set(clave, extraParams[clave])
-    }
 
     return `${pathname}?${params.toString()}`
   }

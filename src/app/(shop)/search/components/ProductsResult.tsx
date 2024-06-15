@@ -44,7 +44,7 @@ export const ProductsResult = ({ search }: Props) => {
       {products.length > 0 && isLoading === false && (
         <div className="mt-5">
           <ProductGrid products={products} />
-          <Pagination totalPages={totalPages} extraParams={{ term: search }} />
+          <Pagination totalPages={totalPages} />
         </div>
       )}
     </div>
